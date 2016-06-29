@@ -1,4 +1,4 @@
-package com.insticator.model;
+package com.employee.model;
 
 public abstract class Employee {
 	protected String SSN;
