@@ -54,4 +54,7 @@ public abstract class Employee {
 	public void setEmployeeType(String employeeType) {
 		this.employeeType = employeeType;
 	}
+	
+	//Abstract Method which is inherited by HOurly and annually paid employees
+	public abstract double calculatePay();
 }
