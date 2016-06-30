@@ -1,37 +1,75 @@
 package com.employee.DAO;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
 import com.employee.util.*;
 import com.employee.model.*;
+import com.employee.model.Employee.PayType;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class EmployeeDAO {
 	
-	public static List<Employee> selectAllCustomers() {
+	static ObjectMapper mapper = new ObjectMapper();
+	static EntityManager em = DBUtil.getEmFactory().createEntityManager();
+	
+	//Function to export current employees to JSON file
+	@SuppressWarnings("unchecked")
+	public static List<Employee> selectAllEmployees() {
 		
-		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		//EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		Employee first = new FullTime("844","Pooja","Purohit",15,PayType.HOURLY,"Web Developer");
+		Employee second = new Intern("999","Prabha","Purohit",15,PayType.YEARLY,"UNH",null,12,40);
+		System.out.println(EmployeeDAO.insert(first));
+		System.out.println(EmployeeDAO.insert(second));
 		Query query = em.createQuery("SELECT e FROM employees e");
         
         List<Employee> results = new ArrayList<Employee>();
+        
         try {
             results.addAll(query.getResultList());
-        } catch (Exception e) {
+            mapper.writeValue(new File("/tmp/result.json"), results);
+        }
+        
+        catch (Exception e) {
             
         } finally {
-            em.close();
+            //em.close();
         }
         
         return results;
     }
 	
+	//Function to import employees from JSON File
+public static boolean importEmployees() {
+        
+        try {
+        	//EMPLOYEE_TYPE has to be specified for each object in the JSON
+        	List<Employee> employees = Arrays.asList(mapper.readValue(new File("/tmp/input.json"), Employee[].class));
+        	for(Employee employee:employees) {
+        		insert(employee);
+        	}
+        }
+        
+        catch (Exception e) {
+        	System.out.println(e.getMessage());
+        	return false;
+            
+        } 
+        return true;
+    }
+	
 	public static boolean insert(Employee employee) {
         boolean success = true;
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        //EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         try {
             if (!trans.isActive()) trans.begin();
@@ -42,7 +80,7 @@ public class EmployeeDAO {
             System.out.println((Employee.class.getName()));
             success = false;
         } finally {
-            em.close();
+            //em.close();
         }
         
         return success;

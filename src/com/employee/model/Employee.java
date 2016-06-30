@@ -9,8 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
@@ -27,6 +31,11 @@ property = "EMPLOYEE_TYPE")
 @Table(name="employees")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "EMPLOYEE_TYPE")
+
+//Ignore unknown field names in the input
+@JsonIgnoreProperties(ignoreUnknown = true)
+//Include only non null fields
+@JsonInclude(Include.NON_NULL)
 public abstract class Employee {
 	@javax.persistence.Id
 	@Column(name = "SSN", unique=true, nullable=false)
@@ -58,9 +67,11 @@ public abstract class Employee {
 		this.payType = type;
 	}
 	
+	@JsonProperty(value ="SSN",required = true)
 	public String getSSN() {
 		return SSN;
 	}
+	@JsonProperty(value ="SSN",required = true)
 	public void setSSN(String sSN) {
 		SSN = sSN;
 	}

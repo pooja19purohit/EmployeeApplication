@@ -4,6 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @DiscriminatorValue(value = "FullTime")
@@ -15,8 +16,9 @@ public class FullTime extends Employee{
 	}
 	
 	@JsonCreator
-	public FullTime(String SSN,String firstName,String lastName,double salary, PayType type,String jobTitle) {
-		super(SSN,firstName,lastName,salary,type);
+	public FullTime(@JsonProperty("SSN") String SSN,@JsonProperty("firstName") String firstName,@JsonProperty("lastName") String lastName,@JsonProperty("salary") double salary, @JsonProperty("payType") PayType payType,@JsonProperty("jobTitle") String jobTitle) {
+		super(SSN,firstName,lastName,salary,payType);
+		//this.setBiWeeklyPay(this.calculatePay());
 		this.jobTitle = jobTitle;
 	}
 	

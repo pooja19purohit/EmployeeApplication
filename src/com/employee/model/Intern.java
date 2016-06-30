@@ -4,6 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 //Intern can be part-time or full-time
 @Entity
@@ -20,8 +21,9 @@ public class Intern extends Employee{
 	}
 	
 	@JsonCreator
-	Intern(String SSN,String firstName,String lastName,double salary, PayType type,String university,Employee supervisor,int lastScheduledMonth, int numberHoursperWeek) {
-		super(SSN,firstName,lastName,salary,type);
+	public Intern(@JsonProperty("SSN") String SSN,@JsonProperty("firstName") String firstName,@JsonProperty("lastName") String lastName,@JsonProperty("salary") double salary, @JsonProperty("payType") PayType payType,@JsonProperty("university") String university,@JsonProperty("supervisor") Employee supervisor,@JsonProperty("lastScheduledMonth") int lastScheduledMonth,@JsonProperty("numberHoursperWeek") int numberHoursperWeek) {
+		super(SSN,firstName,lastName,salary,payType);
+		//this.setBiWeeklyPay(this.calculatePay());
 		this.university = university;
 		//this.supervisor = supervisor;
 		this.lastScheduledMonth = lastScheduledMonth;
@@ -70,5 +72,9 @@ public class Intern extends Employee{
 			double perHour = (salary/52)/numberHoursperWeek;
 			return numberHoursperWeek*perHour;
 		}
+	}
+	
+	public String toString() {
+		return("SSN:" + SSN + " firstName:" + firstName + " lastName:" + lastName + "salary:" + salary + " Paytype:" + payType.toString() + " University:" + university + " lastScheduledMonth:" + lastScheduledMonth + " numberHoursperWeek:" + numberHoursperWeek);
 	}
 }
