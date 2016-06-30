@@ -4,16 +4,29 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
+@JsonTypeInfo(use = Id.NAME,
+include = JsonTypeInfo.As.PROPERTY,
+property = "EMPLOYEE_TYPE")
+@JsonSubTypes({
+@Type(value = FullTime.class, name="FullTime"),
+@Type(value = PartTime.class, name="PartTime"),
+@Type(value = Intern.class, name="Intern")
+})
 
 @Entity(name="employees")
 @Table(name="employees")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "EMPLOYEE_TYPE")
 public abstract class Employee {
-	@Id
+	@javax.persistence.Id
 	@Column(name = "SSN", unique=true, nullable=false)
 	protected String SSN;
 	protected String firstName;
@@ -30,10 +43,11 @@ public abstract class Employee {
 	    YEARLY
 	}
 	
+	//JPA was throwing an error that default constructor was not present
 	Employee() {
 		
 	}
-	Employee(String SSN,String firstName,String lastName,double salary, PayType type) {
+	public Employee(String SSN,String firstName,String lastName,double salary, PayType type) {
 		this.SSN = SSN;
 		this.firstName = firstName;
 		this.lastName = lastName;

@@ -3,6 +3,8 @@ package com.employee.model;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 @Entity
 @DiscriminatorValue(value = "PartTime")
 public class PartTime extends Employee {
@@ -14,10 +16,7 @@ public class PartTime extends Employee {
 		
 	}
 	
-	PartTime(String SSN,String firstName,String lastName,double salary, PayType type) {
-		super(SSN,firstName,lastName,salary,type);
-	}
-	
+	@JsonCreator
 	PartTime(String SSN,String firstName,String lastName,double salary, PayType type,int lastScheduledMonth,int numberHoursperWeek) {
 		super(SSN,firstName,lastName,salary,type);
 		this.lastScheduledMonth = lastScheduledMonth;
