@@ -70,7 +70,7 @@ public class Intern extends Employee{
 		else {
 			//Salary is annual for PayType YEARLY which is 52 weeks
 			double perHour = (salary/52)/numberHoursperWeek;
-			return numberHoursperWeek*perHour;
+			return numberHoursperWeek*perHour*2;
 		}
 	}
 	
