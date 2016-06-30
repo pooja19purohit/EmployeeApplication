@@ -1,0 +1,1 @@
+[{"EMPLOYEE_TYPE":"FullTime","firstName":"Pooja","lastName":"Purohit","salary":15.0,"biWeeklyPay":0.0,"payType":"HOURLY","jobTitle":"Web Developer","SSN":"844"},{"EMPLOYEE_TYPE":"Intern","firstName":"Prabha","lastName":"Purohit","salary":15.0,"biWeeklyPay":0.0,"payType":"YEARLY","university":"UNH","lastScheduledMonth":12,"numberHoursperWeek":40,"SSN":"999"}]
