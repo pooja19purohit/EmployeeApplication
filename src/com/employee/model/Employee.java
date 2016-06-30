@@ -1,10 +1,23 @@
 package com.employee.model;
 
-public abstract class Employee {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity(name="employees")
+@Table(name="employees")
+public class Employee {
+	@Id
+	@Column(name = "SSN", unique=true, nullable=false)
 	protected String SSN;
 	protected String firstName;
 	protected String lastName;
 	protected double salary;
+	//@Transient
 	protected PayType payType;
 
 	protected static enum PayType
@@ -13,6 +26,9 @@ public abstract class Employee {
 	    YEARLY
 	}
 	
+	Employee() {
+		
+	}
 	Employee(String SSN,String firstName,String lastName,double salary, PayType type) {
 		this.SSN = SSN;
 		this.firstName = firstName;
@@ -57,5 +73,5 @@ public abstract class Employee {
 	
 	
 	//Calculates bi-weekly pay
-	public abstract double calculatePay();
+	//public abstract double calculatePay();
 }
