@@ -5,22 +5,21 @@ public abstract class Employee {
 	protected String firstName;
 	protected String lastName;
 	protected double salary;
-	protected String employeeType;
-	
-	protected static enum EmployeeType
+	protected PayType payType;
+
+	protected static enum PayType
 	{
-	    Contract,
-	    FullTime,
-	    PartTime,
-	    Intern
+	    HOURLY,
+	    YEARLY
 	}
 	
-	Employee(String SSN,String firstName,String lastName,double salary, EmployeeType type) {
+	Employee(String SSN,String firstName,String lastName,double salary, PayType type) {
 		this.SSN = SSN;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		//if payType is hourly, salary is per hour rate else it is per year rate
 		this.salary = salary;
-		this.employeeType = type.toString();
+		this.payType = type;
 	}
 	
 	public String getSSN() {
@@ -47,14 +46,16 @@ public abstract class Employee {
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-	public String getEmployeeType() {
-		return employeeType;
+	public PayType getPayType() {
+		return payType;
 	}
 
-	public void setEmployeeType(String employeeType) {
-		this.employeeType = employeeType;
+	public void setPayType(PayType payType) {
+		this.payType = payType;
 	}
+
 	
-	//Abstract Method which is inherited by HOurly and annually paid employees
+	
+	//Calculates bi-weekly pay
 	public abstract double calculatePay();
 }
