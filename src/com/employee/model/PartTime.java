@@ -1,12 +1,18 @@
 package com.employee.model;
 
-import com.employee.model.Employee.PayType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
-//TODO: Define calculatePay
+@Entity
+@DiscriminatorValue(value = "PartTime")
 public class PartTime extends Employee {
 	
 	private int lastScheduledMonth;
 	private int numberHoursperWeek;
+	
+	PartTime() {
+		
+	}
 	
 	PartTime(String SSN,String firstName,String lastName,double salary, PayType type) {
 		super(SSN,firstName,lastName,salary,type);

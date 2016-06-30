@@ -1,26 +1,30 @@
 package com.employee.model;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity(name="employees")
 @Table(name="employees")
-public class Employee {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "EMPLOYEE_TYPE")
+public abstract class Employee {
 	@Id
 	@Column(name = "SSN", unique=true, nullable=false)
 	protected String SSN;
 	protected String firstName;
 	protected String lastName;
 	protected double salary;
+	protected double biWeeklyPay;
+
 	//@Transient
 	protected PayType payType;
 
-	protected static enum PayType
+	public static enum PayType
 	{
 	    HOURLY,
 	    YEARLY
@@ -69,9 +73,15 @@ public class Employee {
 	public void setPayType(PayType payType) {
 		this.payType = payType;
 	}
-
+	
+	public double getBiWeeklyPay() {
+		return biWeeklyPay;
+	}
+	public void setBiWeeklyPay(double biWeeklyPay) {
+		this.biWeeklyPay = biWeeklyPay;
+	}
 	
 	
 	//Calculates bi-weekly pay
-	//public abstract double calculatePay();
+	public abstract double calculatePay();
 }

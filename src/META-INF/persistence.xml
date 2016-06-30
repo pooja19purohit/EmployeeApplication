@@ -3,13 +3,16 @@
 	<persistence-unit name="EmployeeApplication">
 	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 	<class>com.employee.model.Employee</class>
+	<class>com.employee.model.FullTime</class>
+	<class>com.employee.model.PartTime</class>
+	<class>com.employee.model.Intern</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Employee"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="XXXX"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.jdbc.password" value="poo"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

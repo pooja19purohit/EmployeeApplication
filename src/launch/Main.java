@@ -6,10 +6,11 @@ import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import com.employee.util.*;
+import com.employee.DAO.EmployeeDAO;
 import com.employee.model.*;
+import com.employee.model.Employee.PayType;
 
 public class Main {
 
@@ -21,10 +22,11 @@ public class Main {
 			
 			switch(option) {
 				
-			case 1:  EntityManager em = DBUtil.getEmFactory().createEntityManager();
-			Query query = em.createQuery("SELECT e FROM employees e");
-	        //TypedQuery tq = em.createQuery(query, Employee.class);
-	        System.out.println(query.getResultList());
+			case 1:  System.out.println(EmployeeDAO.selectAllCustomers());
+					break;
+			case 2: Employee first = new FullTime("844","Pooja","Purohit",15,PayType.HOURLY,"Web Developer");
+					System.out.println(EmployeeDAO.insert(first));
+					break;
 	        
 		}
 		}

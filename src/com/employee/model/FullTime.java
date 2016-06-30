@@ -1,14 +1,21 @@
 package com.employee.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
+@Entity
+@DiscriminatorValue(value = "FullTime")
 public class FullTime extends Employee{
 	String jobTitle;
-
-	FullTime(String SSN,String firstName,String lastName,double salary, PayType type) {
+	
+	FullTime() {
+		
+	}
+	public FullTime(String SSN,String firstName,String lastName,double salary, PayType type) {
 		super(SSN,firstName,lastName,salary,type);
 	}
 	
-	FullTime(String SSN,String firstName,String lastName,double salary, PayType type,String jobTitle) {
+	public FullTime(String SSN,String firstName,String lastName,double salary, PayType type,String jobTitle) {
 		super(SSN,firstName,lastName,salary,type);
 		this.jobTitle = jobTitle;
 	}
