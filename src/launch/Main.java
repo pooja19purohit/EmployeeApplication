@@ -18,7 +18,7 @@ import com.employee.model.Employee.PayType;
 /*
  * TODO: Read JSON from file and write to file
  * TODO: Host Database on cloud
- * TODO: Documentation in READ.ME
+ * TODO: Documentation in READ.ME - Include Design Objective, Single table JPA inheritance, Jackson
  */
 public class Main {
 
@@ -31,7 +31,13 @@ public class Main {
 			
 			switch(option) {
 				
-			case 1:  System.out.println(EmployeeDAO.selectAllCustomers());
+			case 1:  List<Employee> results = EmployeeDAO.selectAllCustomers();
+					String sjson = null;
+					for(Employee result:results) {
+						sjson = mapper.writeValueAsString(result);
+						System.out.println("JSON is " + sjson);
+						System.out.println(result);
+					}
 					break;
 			case 2: Employee first = new FullTime("844","Pooja","Purohit",15,PayType.HOURLY,"Web Developer");
 					String s = null;
@@ -42,7 +48,7 @@ public class Main {
 						e.printStackTrace();
 					}
 					System.out.println(s);
-					//System.out.println(EmployeeDAO.insert(first));
+					System.out.println(EmployeeDAO.insert(first));
 					break;
 	        
 		}

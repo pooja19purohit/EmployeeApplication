@@ -39,4 +39,8 @@ public class FullTime extends Employee{
 			return (salary/52)*2;
 		}
 	}
+	
+	public String toString() {
+		return("SSN:" + SSN + " firstName:" + firstName + " lastName:" + lastName + "salary:" + salary + " Paytype:" + payType.toString() + " JobTitle:" + jobTitle);
+	}
 }

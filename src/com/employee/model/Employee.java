@@ -1,6 +1,8 @@
 package com.employee.model;
 
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Entity;
@@ -34,7 +36,7 @@ public abstract class Employee {
 	protected double salary;
 	protected double biWeeklyPay;
 
-	//@Transient
+	@Enumerated(EnumType.ORDINAL)
 	protected PayType payType;
 
 	public static enum PayType
@@ -94,7 +96,6 @@ public abstract class Employee {
 	public void setBiWeeklyPay(double biWeeklyPay) {
 		this.biWeeklyPay = biWeeklyPay;
 	}
-	
 	
 	//Calculates bi-weekly pay
 	public abstract double calculatePay();
